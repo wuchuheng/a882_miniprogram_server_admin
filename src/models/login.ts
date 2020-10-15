@@ -1,9 +1,11 @@
 import { stringify } from 'querystring';
 import { history, Reducer, Effect } from 'umi';
-
 import { fakeAccountLogin } from '@/services/login';
 import { setAuthority } from '@/utils/authority';
 import { getPageQuery } from '@/utils/utils';
+import { ResponseState } from '@/services/Type';
+import { setToken, removeToken } from '@/utils/auth';
+import { currentUserRoleKey } from '@/utils/common';
 
 export interface StateType {
   status?: 'ok' | 'error';
@@ -17,6 +19,7 @@ export interface LoginModelType {
   effects: {
     login: Effect;
     logout: Effect;
+    loginByCacheToken: Effect;
   };
   reducers: {
     changeLoginStatus: Reducer<StateType>;
@@ -32,13 +35,18 @@ const Model: LoginModelType = {
 
   effects: {
     *login({ payload }, { call, put }) {
-      const response = yield call(fakeAccountLogin, payload);
-      yield put({
-        type: 'changeLoginStatus',
-        payload: response,
-      });
-      // Login successfully
-      if (response.status === 'ok') {
+      const response: ResponseState = yield call(fakeAccountLogin, payload);
+      if (response.success === true) {
+        yield put({
+          type: 'changeLoginStatus',
+          payload: {
+            status: 'ok',
+            // :xxx 这个字段可能是用户判断设备是pc或mobile等，作用
+            type: 'pc',
+          },
+        });
+        const data = response.data as { token: string };
+        setToken(data.token);
         const urlParams = new URL(window.location.href);
         const params = getPageQuery();
         let { redirect } = params as { redirect: string };
@@ -54,12 +62,28 @@ const Model: LoginModelType = {
             return;
           }
         }
-        history.replace(redirect || '/');
+        window.location.href = '/';
+      } else {
+        // eslint-disable-next-line consistent-return
+        return Promise.reject(response.errorMessage);
       }
+    },
+
+    *loginByCacheToken(_, { put }) {
+      yield put({
+        type: 'changeLoginStatus',
+        payload: {
+          status: 'ok',
+          // :xxx 这个字段可能是用户判断设备是pc或mobile等，作用
+          type: 'pc',
+        },
+      });
     },
 
     logout() {
       const { redirect } = getPageQuery();
+      removeToken();
+      localStorage.removeItem(currentUserRoleKey);
       // Note: There may be security issues, please note
       if (window.location.pathname !== '/user/login' && !redirect) {
         history.replace({
@@ -71,7 +95,6 @@ const Model: LoginModelType = {
       }
     },
   },
-
   reducers: {
     changeLoginStatus(state, { payload }) {
       setAuthority(payload.currentAuthority);

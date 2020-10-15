@@ -1,4 +1,5 @@
 import { Effect, Reducer } from 'umi';
+import { setCurrentUserRoles } from '@/utils/common';
 
 import { queryCurrent, query as queryUsers } from '@/services/user';
 
@@ -52,8 +53,9 @@ const UserModel: UserModelType = {
       const response = yield call(queryCurrent);
       yield put({
         type: 'saveCurrentUser',
-        payload: response,
+        payload: response.data,
       });
+      setCurrentUserRoles(response.data.roles);
     },
   },
 

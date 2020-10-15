@@ -1,4 +1,3 @@
-// https://umijs.org/config/
 import { defineConfig } from 'umi';
 import defaultSettings from './defaultSettings';
 import proxy from './proxy';
@@ -40,6 +39,7 @@ export default defineConfig({
     {
       path: '/',
       component: '../layouts/SecurityLayout',
+      wrappers: ['@/wrapper/loginGuard'],
       routes: [
         {
           path: '/',
