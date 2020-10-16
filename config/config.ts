@@ -1,9 +1,7 @@
 import { defineConfig } from 'umi';
 import defaultSettings from './defaultSettings';
 import proxy from './proxy';
-
 const { REACT_APP_ENV } = process.env;
-
 export default defineConfig({
   hash: true,
   antd: {},
@@ -77,6 +75,12 @@ export default defineConfig({
               icon: 'table',
               path: '/list',
               component: './ListTableList',
+            },
+            {
+              name: '分析页',
+              icon: 'smile',
+              path: '/dashboard',
+              component: './Dashboard',
             },
             {
               component: './404',
