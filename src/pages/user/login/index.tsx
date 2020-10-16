@@ -5,7 +5,6 @@ import { StateType } from '@/models/login';
 import { LoginParamsType } from '@/services/login';
 import { ConnectState } from '@/models/connect';
 import LoginForm from './components/Login';
-
 import styles from './style.less';
 
 const { Tab, UserName, Password, Submit } = LoginForm;

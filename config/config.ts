@@ -46,13 +46,26 @@ export default defineConfig({
           routes: [
             {
               path: '/',
-              redirect: '/welcome',
+              redirect: '/dashboard',
             },
             {
-              path: '/welcome',
-              name: 'welcome',
-              icon: 'smile',
-              component: './Welcome',
+              name: '仪表盘',
+              icon: 'dashboard',
+              path: '/dashboard',
+              component: './Dashboard',
+            },
+            {
+              name: '车辆管理',
+              icon: 'car',
+              path: '/management',
+              routes: [
+                {
+                  name: '分类管理',
+                  icon: 'category',
+                  path: '/management/categores',
+                  component: './Management/Categores',
+                },
+              ],
             },
             {
               path: '/admin',
@@ -75,12 +88,6 @@ export default defineConfig({
               icon: 'table',
               path: '/list',
               component: './ListTableList',
-            },
-            {
-              name: '分析页',
-              icon: 'smile',
-              path: '/dashboard',
-              component: './Dashboard',
             },
             {
               component: './404',
