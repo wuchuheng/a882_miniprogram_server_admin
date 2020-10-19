@@ -1,27 +1,14 @@
-import { PageContainer } from '@ant-design/pro-layout';
-import React, { useState, useEffect } from 'react';
-import { Spin } from 'antd';
-import styles from './index.less';
+import { PageHeaderWrapper } from '@ant-design/pro-layout';
+import React from 'react';
+import { Card } from 'antd';
 import TableBasic from './TableBasic';
 
 export default () => {
-  const [loading, setLoading] = useState<boolean>(true);
-  useEffect(() => {
-    setTimeout(() => {
-      setLoading(false);
-    }, 3000);
-  }, []);
   return (
-    <PageContainer content="这是一个新页面，从这里进行开发！" className={styles.main}>
-      <TableBasic />
-      <div
-        style={{
-          paddingTop: 100,
-          textAlign: 'center',
-        }}
-      >
-        <Spin spinning={loading} size="large" />
-      </div>
-    </PageContainer>
+    <PageHeaderWrapper content="为出售的车辆进行分类">
+      <Card>
+        <TableBasic />
+      </Card>
+    </PageHeaderWrapper>
   );
 };

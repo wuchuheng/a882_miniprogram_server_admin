@@ -26,6 +26,7 @@ export interface LoginModelType {
   };
 }
 
+// @ts-ignore
 const Model: LoginModelType = {
   namespace: 'login',
 

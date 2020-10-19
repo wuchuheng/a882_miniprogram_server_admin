@@ -64,4 +64,21 @@ if (isExpired()) {
 
 const request = extend(options);
 
+// 异常响应处理
+request.interceptors.response.use(async (response) => {
+  const data = await response.clone().json();
+  if (data.success === false && data.showType) {
+    if (data.showType === 4) {
+      notification.error({
+        message: `请求错误`,
+        description: data.errorMessage,
+      });
+    }
+  }
+  // 服务端异常
+  if (data.success === false) throw data.errorMessage;
+
+  return response;
+});
+
 export default request;

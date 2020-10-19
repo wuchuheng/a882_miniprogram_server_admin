@@ -24,6 +24,11 @@ export default defineConfig({
   // umi routes: https://umijs.org/docs/routing
   routes: [
     {
+      name: 'test',
+      path: '/test',
+      component: './Test',
+    },
+    {
       path: '/user',
       component: '../layouts/UserLayout',
       routes: [
@@ -49,18 +54,18 @@ export default defineConfig({
               redirect: '/dashboard',
             },
             {
-              name: '仪表盘',
+              name: 'dashboard',
               icon: 'dashboard',
               path: '/dashboard',
               component: './Dashboard',
             },
             {
-              name: '车辆管理',
+              name: 'management',
               icon: 'car',
               path: '/management',
               routes: [
                 {
-                  name: '分类管理',
+                  name: 'categores',
                   icon: 'category',
                   path: '/management/categores',
                   component: './Management/Categores',
