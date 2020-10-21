@@ -70,6 +70,12 @@ export default defineConfig({
                   path: '/management/categores',
                   component: './Management/Categores',
                 },
+                {
+                  name: 'brands',
+                  icon: 'brand',
+                  path: '/management/management/brands',
+                  component: './Management/Brands',
+                },
               ],
             },
             {
