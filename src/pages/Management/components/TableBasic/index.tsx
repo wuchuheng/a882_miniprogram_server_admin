@@ -1,8 +1,6 @@
 import React, { useState } from 'react';
-import { Table, Input, InputNumber, Form, Button, Modal, message, Spin } from 'antd';
-import { ItemState } from './Type';
-import { fetchBrands, update, create } from '@/services/brands';
-import styles from '@/pages/Management/Brands/index.less';
+import { Table, Input, InputNumber, Form, Button, Modal, message } from 'antd';
+import { ItemState, EditableProps } from './Type';
 
 interface EditableCellProps extends React.HTMLAttributes<HTMLElement> {
   editing: boolean;
@@ -48,7 +46,7 @@ const EditableCell: React.FC<EditableCellProps> = ({
   );
 };
 
-const EditableTable1 = (props: { data: ItemState[]; editHandle: (item: ItemState) => void }) => {
+const EditableTable1 = (props: { columName: string; data: ItemState[]; editHandle: (item: ItemState) => void }) => {
   const [form] = Form.useForm();
   const [editingKey, setEditingKey] = useState('');
 
@@ -90,7 +88,7 @@ const EditableTable1 = (props: { data: ItemState[]; editHandle: (item: ItemState
       editable: false,
     },
     {
-      title: '类名',
+      title: props.columName,
       dataIndex: 'name',
       width: '25%',
       editable: true,
@@ -151,17 +149,15 @@ const EditableTable1 = (props: { data: ItemState[]; editHandle: (item: ItemState
 };
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-class EditableTable extends React.Component<any, any> {
+class EditableTable extends React.Component<EditableProps, any> {
   state: {
     data: ItemState[];
     visible: boolean;
     newCategoreName: string;
-    loading: boolean;
   } = {
     data: [],
     visible: false,
     newCategoreName: '',
-    loading: false,
   };
 
   componentDidMount() {
@@ -169,18 +165,17 @@ class EditableTable extends React.Component<any, any> {
   }
 
   fetchCategoresHandle() {
-    this.setState({ loading: true });
-    fetchBrands().then((res: { data: Array<{ id: number; name: string }> }) => {
+    this.props.handleFetchAll().then((res: { data: Array<{ id: number; name: string }> }) => {
       const data = res.data.map((item) => {
         return { key: `${item.id}`, id: item.id, name: item.name };
       });
-      this.setState({ loading: false, data });
+      this.setState({ data });
     });
   }
 
   editorHandle(item: ItemState) {
     const { id, name } = item;
-    update({ id, name }).then(() => {
+    this.props.handleEdit({id, name}).then(() => {
       this.fetchCategoresHandle();
     });
   }
@@ -188,7 +183,7 @@ class EditableTable extends React.Component<any, any> {
   // 添加分类
   handleAddCategoryOk() {
     const name = this.state.newCategoreName;
-    create({ name }).then(() => {
+    this.props.handleCreate({name}).then(() =>{
       this.fetchCategoresHandle();
       message.success('添加成功');
     });
@@ -213,24 +208,18 @@ class EditableTable extends React.Component<any, any> {
   }
 
   render() {
-    const title = '添加品牌';
     return (
       <>
         <Button type="primary" onClick={() => this.handleShowModal()}>
-          {title}
+          {this.props.title}
         </Button>
-        {this.state.loading ? (
-          <div className={styles.main}>
-            <Spin spinning={this.state.loading} size="large" />
-          </div>
-        ) : (
-          <EditableTable1
-            data={this.state.data}
-            editHandle={(item: ItemState) => this.editorHandle(item)}
-          />
-        )}
+        <EditableTable1
+          data={this.state.data}
+          editHandle={(item: ItemState) => this.editorHandle(item)}
+          columName={this.props.columName}
+        />
         <Modal
-          title={title}
+          title={this.props.title}
           visible={this.state.visible}
           onOk={() => this.handleAddCategoryOk()}
           onCancel={() => this.handleAddCategoryCancel()}
@@ -238,7 +227,7 @@ class EditableTable extends React.Component<any, any> {
           okText="确定"
         >
           <Input
-            placeholder="请输入类名"
+            placeholder={`请输入${this.props.title}`}
             onChange={(value) => this.setState({ newCategoreName: value.target.value })}
           />
         </Modal>

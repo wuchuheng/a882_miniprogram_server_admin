@@ -15,3 +15,12 @@ export interface EditableCellProps extends React.HTMLAttributes<HTMLElement> {
   index: number;
   children: React.ReactNode;
 }
+
+export interface EditableProps {
+  title: string;
+  columName: string;
+  handleFetchAll: () => Promise<{data: Array<{id: number; name: string}>}>;
+  handleCreate: (params: {name: string}) => Promise<{success: boolean}>;
+  handleEdit: (params: {id: number; name: string}) =>  Promise<{success: boolean}>;
+
+}

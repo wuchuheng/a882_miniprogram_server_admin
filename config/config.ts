@@ -76,6 +76,12 @@ export default defineConfig({
                   path: '/management/management/brands',
                   component: './Management/Brands',
                 },
+                {
+                  name: 'goodsTags',
+                  icon: 'smile',
+                  path: '/management/goodstags',
+                  component: './Management/GoodsTags',
+                },
               ],
             },
             {

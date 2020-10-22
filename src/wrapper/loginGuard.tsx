@@ -8,7 +8,7 @@ export default (props: any) => {
   const loginState = useSelector((state: ConnectState) => state.login.status);
 
   if (loginState !== 'ok' && !isExpired()) {
-    return <Redirect to="user/login" />;
+    return <Redirect to="/user/login" />;
   }
   if (isExpired()) {
     // 有缓存token，从缓存token进行登录

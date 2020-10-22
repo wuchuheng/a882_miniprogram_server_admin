@@ -4,8 +4,9 @@ export default {
   'menu.home': '首页',
   'menu.admin': '管理页',
   'menu.management': '车辆管理',
-  'menu.management.brands': '车辆管理',
+  'menu.management.brands': '车辆品牌',
   'menu.management.categores': '车辆分类',
+  'menu.management.goodsTags': '车辆标签',
 
   'menu.admin.sub-page': '二级管理页',
   'menu.login': '登录',
