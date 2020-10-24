@@ -6,7 +6,7 @@ import  {fetchAll, edit, create} from '@/services/goodsTags';
 
 export default () => {
   return (
-    <PageContainer content="为出售的车辆进行分类" >
+    <PageContainer content="为出售的车辆添加标签" >
       <Card>
         <EditableTable
           title='添加标签'

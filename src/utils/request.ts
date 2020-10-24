@@ -76,7 +76,7 @@ request.interceptors.response.use(async (response) => {
     }
   }
   // 服务端异常
-  if (data.success === false) throw data.errorMessage;
+  // if (data.success === false) throw data.errorMessage;
 
   return response;
 });

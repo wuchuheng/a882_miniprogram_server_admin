@@ -17,7 +17,8 @@ export async function update(params: { name: string; id: number }) {
 
 // 创建
 export async function create(params: { name: string }) {
-  return request('/management/brands', {
+  return request('/management/brands',
+    {
     method: 'POST',
     params: { name: params.name },
   });

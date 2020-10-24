@@ -8,7 +8,7 @@ import {fetchBrands, update, create} from '@/services/brands';
 class Brands extends React.Component<any, any> {
   render() {
     return (
-      <PageContainer content="为出售的车辆进行分类">
+      <PageContainer content="为出售的车辆进行品牌分类">
         <Card>
           <EditableTable
             title='添加品牌'

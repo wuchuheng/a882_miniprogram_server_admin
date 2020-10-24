@@ -107,6 +107,18 @@ export default defineConfig({
               component: './ListTableList',
             },
             {
+              name: 'storeCreate',
+              hideInMenu: true,
+              path: '/stores/create',
+              component: './Stores/CreateRender',
+            },
+            {
+              name: 'stores',
+              icon: 'shop',
+              path: '/stores',
+              component: './Stores',
+            },
+            {
               component: './404',
             },
           ],
