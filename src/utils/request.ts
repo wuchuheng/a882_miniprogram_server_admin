@@ -7,6 +7,16 @@ import { notification } from 'antd';
 import config from '@/config';
 import { isExpired, getToken } from '@/utils/auth';
 
+/**
+ *  异常返回格式
+ */
+export interface ErrorExceptionState {
+  success: boolean;
+  errorCode: number;
+  errorMessage: string;
+  showType: number;
+}
+
 const codeMessage = {
   200: '服务器成功返回请求的数据。',
   201: '新建或修改数据成功。',
@@ -28,23 +38,33 @@ const codeMessage = {
 /**
  * 异常处理程序
  */
-const errorHandler = (error: { response: Response }): Response => {
-  const { response } = error;
-  if (response && response.status) {
-    const errorText = codeMessage[response.status] || response.statusText;
-    const { status, url } = response;
-
-    notification.error({
-      message: `请求错误 ${status}: ${url}`,
-      description: errorText,
-    });
-  } else if (!response) {
-    notification.error({
-      description: '您的网络发生异常，无法连接服务器',
-      message: '网络异常',
-    });
+const errorHandler = async (error: { response: Response }): Promise<ErrorExceptionState> => {
+  const  response  = await error.response;
+  // 服务端报错
+  const data = await response.clone().json() as ErrorExceptionState;
+  if (data) {
+    if (data.showType === 4) {
+      notification.error({
+        message: `请求错误`,
+        description: data.errorMessage,
+      });
+    }
+    return Promise.reject(data);
   }
-  return response;
+  // http状态码异常
+  const errorText = codeMessage[response.status] || response.statusText;
+  const { status, url } = response;
+
+  notification.error({
+    message: `请求错误 ${status}: ${url}`,
+    description: errorText,
+  });
+  const stateError = {
+    success: false,
+    errorCode: status,
+    errorMessage: url
+  };
+  return Promise.reject(stateError)
 };
 
 /**
@@ -67,17 +87,10 @@ const request = extend(options);
 // 异常响应处理
 request.interceptors.response.use(async (response) => {
   const data = await response.clone().json();
-  if (data.success === false && data.showType) {
-    if (data.showType === 4) {
-      notification.error({
-        message: `请求错误`,
-        description: data.errorMessage,
-      });
-    }
-  }
   // 服务端异常
-  // if (data.success === false) throw data.errorMessage;
-
+  if (data.success === false && data.showType) {
+    throw { response };
+  }
   return response;
 });
 

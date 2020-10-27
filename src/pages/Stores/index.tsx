@@ -1,7 +1,8 @@
 import { PageContainer } from '@ant-design/pro-layout';
 import React from 'react';
-import {Card, Button} from 'antd';
-import {history} from "umi";
+import { Card, Button } from 'antd';
+import { history } from 'umi';
+import TableRender from './TableRender';
 
 export default () => {
   const handleRedirect = () => {
@@ -13,6 +14,7 @@ export default () => {
       <Card>
         <Button onClick={handleRedirect}>创建</Button>
       </Card>
+      <TableRender />
     </PageContainer>
   );
 };

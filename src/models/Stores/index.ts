@@ -61,19 +61,22 @@ const StoresModel: StoresModelType = {
         ...payload
       };
       const newBannerIds = newCreateUserInfo.bannerIds.map(item => item.id);
-      const response = yield call(createUserRequest, {
-        ...newCreateUserInfo,
-        bannerIds: newBannerIds
-      });
-      if (response.success) {
-        yield put({
-          type: 'save',
-          payload: {
-            currentStep: 2,
-            createUserInfo: newCreateUserInfo
-          }
+
+      try{
+        const response = yield call(createUserRequest, {
+          ...newCreateUserInfo,
+          bannerIds: newBannerIds
         });
-      }
+        if (response.success) {
+          yield put({
+            type: 'save',
+            payload: {
+              currentStep: 2,
+              createUserInfo: newCreateUserInfo
+            }
+          });
+        }
+      } catch (e: any) { }
     },
     * toPrevStep(_, { put, select}) {
       const currentStep =  yield select((state: ConnectState) => state.stores.currentStep);

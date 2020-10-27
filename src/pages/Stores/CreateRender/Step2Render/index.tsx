@@ -1,6 +1,8 @@
 import React, {ReactNode} from "react";
-import {useDispatch, useSelector} from 'react-redux';
-import {PositionState} from './MarkerRender/Type';
+import {useDispatch} from 'react-redux';
+import {PositionState} from '../../components/MarkerRender/Type';
+import {getAddressByLocation} from "@/utils/common";
+import {tags} from "@/pages/Stores/Type";
 import {Button,
   Form,
   Input,
@@ -10,9 +12,8 @@ import {Button,
   Rate,
   TimePicker
 } from 'antd';
-import MarkerRender from "./MarkerRender";
-import UploadRender from "./UploadRender";
-import {ConnectState} from "@/models/connect";
+import MarkerRender from "../../components/MarkerRender";
+import UploadRender from "../../../../components/UploadRender";
 
 const { Option } = Select;
 const { RangePicker } = TimePicker;
@@ -21,7 +22,7 @@ const Step2Render = () => {
   const [form] = Form.useForm();
 
   const children: Array<ReactNode> = [];
-  ['机场', '火车站'].forEach((item) => {
+  tags.forEach((item) => {
     children.push(
       <Option key={item} value={item}>
         {item}
@@ -95,9 +96,13 @@ const Step2Render = () => {
   };
 
   const handleSelectPosition = (location: PositionState) => {
-      form.setFieldsValue({location});
+    // 设置坐标
+    form.setFieldsValue({location});
+    // 设置地址
+    getAddressByLocation(location).then(address => {
+      form.setFieldsValue({address});
+    })
   };
-
 
   return (
       <Form

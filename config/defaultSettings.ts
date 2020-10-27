@@ -16,7 +16,7 @@ const proSettings: DefaultSettings = {
   menu: {
     locale: true,
   },
-  title: 'Ant Design Pro',
+  title: '免押租车后台',
   pwa: false,
   iconfontUrl: '',
 };

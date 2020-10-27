@@ -1,8 +1,7 @@
 export interface PropsState {
-  handleSelectLocation:  (params: {
-    latitude: number;
-    longitude: number;
-  }) => void;
+  handleSelectLocation:  (params: PositionState) => void;
+  latitude?: string;
+  longitude?: string;
 }
 
 export interface PositionState {
@@ -13,5 +12,6 @@ export interface PositionState {
 export interface BaseState {
   markerProp: {
     position?: PositionState
-  }
+  };
+  AMAP_KEY: string;
 }
