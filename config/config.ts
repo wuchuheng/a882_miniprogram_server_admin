@@ -82,6 +82,18 @@ export default defineConfig({
                   path: '/management/goodstags',
                   component: './Management/GoodsTags',
                 },
+                {
+                  name: 'online',
+                  path: '/management/online',
+                  component: './Management/OnlineRender',
+                },
+                {
+                  name: 'createCar',
+                  icon: 'smile',
+                  hideInMenu: true,
+                  path: '/management/createCar',
+                  component: './Management/CreateCarRender',
+                },
               ],
             },
             {

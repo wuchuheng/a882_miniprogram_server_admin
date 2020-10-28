@@ -7,8 +7,13 @@ export default {
   'menu.management.brands': '车辆品牌',
   'menu.management.categores': '车辆分类',
   'menu.management.goodsTags': '车辆标签',
+  'menu.management.online': '上架',
+  'menu.management.createCar': '添加车子',
   'menu.stores': '门店',
   'menu.storeCreate': '添加门店',
+
+  'menu.setting.prices': '价格设置',
+  'menu.setting': '设置',
 
   'menu.admin.sub-page': '二级管理页',
   'menu.login': '登录',

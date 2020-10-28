@@ -1,7 +1,17 @@
-import request from '@/utils/request';
+import request, {ResponseState} from '@/utils/request';
+
+export interface ItemBrand {
+  id: number;
+  name: string;
+}
+
+export interface FetchBrandsState extends ResponseState{
+  data: Array<ItemBrand>
+}
 
 // 品牌列表
-export async function fetchBrands() {
+export async function fetchBrands(): Promise<FetchBrandsState>
+{
   return request('/management/brands', {
     method: 'GET',
   });

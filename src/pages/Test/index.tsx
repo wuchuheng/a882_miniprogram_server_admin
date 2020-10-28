@@ -1,13 +1,17 @@
 import React from 'react';
-import {fetchList} from "@/services/configs";
+import {Select} from "antd";
 
+const {Option} = Select;
 export default () => {
-  // request('https://restapi.amap.com/v3/geocode/regeo?key=b9ec8422cefaed1483796733ed761921&location=116.5477538,23.65652384');
-  fetchList().then(res => {
-    const  index = res.data.findIndex(item => {
-      return item.name === 'AMAP_KEY'
-    });
-
-  })
-  return <></>;
+  const chidren = [];
+  for(let i = 0; i < 8; i += 1) {
+    chidren.push(<Option key={i} value={i}>{i}</Option>)
+  }
+  return (
+    <>
+      <Select>
+        {chidren}
+      </Select>
+    </>
+  );
 };

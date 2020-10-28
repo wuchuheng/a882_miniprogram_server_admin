@@ -8,7 +8,6 @@ import 'antd/es/slider/style';
 import {UploadChangeParam} from "antd/lib/upload";
 import {PropsState, ImgItemState} from './Type';
 import {UploadFile} from "antd/es/upload/interface";
-import {deleteUserBanner} from "@/services/user";
 
 const UploadRender = (props: PropsState) => {
 

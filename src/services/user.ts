@@ -1,4 +1,4 @@
-import request from '@/utils/request';
+import request, {ResponseState} from '@/utils/request';
 
 export interface UpdateParamsState {
   id: number;
@@ -13,6 +13,15 @@ export interface UpdateParamsState {
   end_time: string;
   banners: string;
   password?: string;
+}
+
+export interface FetchShopNicknamesItem {
+  id: number;
+  nickname: string;
+}
+
+export interface FetchShopNicknamesState extends ResponseState{
+  data: Array<FetchShopNicknamesItem>
 }
 
 export async function query(): Promise<any> {
@@ -88,3 +97,10 @@ export const userUpdate = async (params: UpdateParamsState ) => {
     params
   });
 }
+
+// 获取门店列表
+export const fetchShopNicknames = async () : Promise<FetchShopNicknamesState> => {
+  return request('/users/shopNames', {
+    method: 'GET'
+  });
+};

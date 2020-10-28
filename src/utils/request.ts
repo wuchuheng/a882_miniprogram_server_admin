@@ -17,6 +17,17 @@ export interface ErrorExceptionState {
   showType: number;
 }
 
+/**
+ * 正常响应格式
+ */
+
+export interface ResponseState {
+  success: boolean;
+  data?: Array<any>;
+  showType?: number;
+  erroeMessage?: string;
+}
+
 const codeMessage = {
   200: '服务器成功返回请求的数据。',
   201: '新建或修改数据成功。',

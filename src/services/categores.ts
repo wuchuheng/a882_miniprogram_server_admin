@@ -1,7 +1,13 @@
 import request from '@/utils/request';
 
+export interface FetchCategoreItemState {
+  id: number;
+  name: string;
+}
+
 // 获取车辆分类
-export async function fetchCategores() {
+export async function fetchCategores() : Promise<{data:Array<FetchCategoreItemState>}>
+{
   return request('/management/categores', {
     method: 'GET',
   });
