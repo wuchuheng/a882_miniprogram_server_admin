@@ -55,6 +55,13 @@ export interface FetchItemState {
   "banner": BannerState;
 }
 
+export interface FetchParamsStatus  {
+  page: number;
+  result: number;
+  name?: string;
+  status?: boolean;
+}
+
 export interface FetchResponseState extends ResponseState {
   data: {
     items: Array<FetchItemState>;
@@ -110,7 +117,7 @@ export const create = async (data: CreateState) => {
   });
 };
 
-export const fetch = async (params: {result: number; page: number;}) : Promise<FetchResponseState> => {
+export const fetch = async (params: FetchParamsStatus) : Promise<FetchResponseState> => {
   return request('/goods', {
     method: 'GET',
     params

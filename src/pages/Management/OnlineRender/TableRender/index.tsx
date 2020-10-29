@@ -10,8 +10,9 @@ import {
   fetch
 } from "@/services/goods";
 import {TablePaginationConfig} from "antd/es/table";
+import {PropsState} from './Type';
 
-const TableRender = () => {
+const TableRender = (props: PropsState) => {
   const [dataSource, seTdataSource] = useState<Array<FetchItemState>>([]);
   const [pagination, setPagination ] = useState<TablePaginationConfig>({});
   const [loading, setLoading] = useState<boolean>(false);
@@ -20,7 +21,9 @@ const TableRender = () => {
     setLoading(true);
     const result = newPagination.pageSize as number;
     const page = newPagination.current as number;
-    fetch({result , page }).then(res => {
+    const status = props.status !== undefined ? {status: props.status} : {};
+    const name = props.name ? {name : props.name} : {};
+    fetch({result , page, ...status, ...name }).then(res => {
       seTdataSource(res.data.items);
       setPagination((prev) => ({
         ...prev,
@@ -125,7 +128,7 @@ const TableRender = () => {
 
   useEffect(() => {
     handleChange({...pagination, current: 1, pageSize: 10});
-  }, []);
+  }, [props.name, props.status]);
 
   return (
     <Table

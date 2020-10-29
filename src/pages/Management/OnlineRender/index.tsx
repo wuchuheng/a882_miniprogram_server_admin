@@ -1,16 +1,19 @@
 import { PageContainer } from '@ant-design/pro-layout';
 import React, {FC, useEffect, useState} from 'react';
-import { Card, Button, Row, Col } from 'antd';
+import { Card, Row, Col } from 'antd';
 import {history} from "umi";
 import TableRender from './TableRender';
 import styles from './index.less';
 import {fetchStatus, FetchStatusState} from '@/services/goods'
+import SearchRender from "./SearchRender";
+import {QueryState} from "./SearchRender/Type";
 
 export default () => {
   const [status, setStatus] = useState<FetchStatusState>({total: 0, offLineTotal: 0, onLineTotal: 0});
   useEffect(() => {
     fetchStatus().then(res => setStatus(res.data));
-  });
+  }, []);
+  const [query, setQuery] = useState<QueryState>({});
   const onRedirectToCreate = () => {
     history.push('/management/createCar');
   };
@@ -26,6 +29,9 @@ export default () => {
     </div>
   );
 
+  const onSearch = (params: QueryState) => {
+    setQuery(params)
+  };
 
   return (
     <PageContainer content="出售中的车辆">
@@ -46,16 +52,15 @@ export default () => {
           </Card>
         </Col>
         <Col span={24}>
-          <Card>
+          <Card
+            title='车辆列表'
+            extra={ <SearchRender onChange={onSearch}/>}
+          >
             <Row>
-              <Col span={1} offset={23}>
-                <Button
-                  type='primary'
-                  onClick={onRedirectToCreate}
-                >添加</Button>
-              </Col>
               <Col span='24'>
-                <TableRender />
+                <TableRender
+                  {...query}
+                />
               </Col>
             </Row>
           </Card>
