@@ -23,7 +23,7 @@ export interface ErrorExceptionState {
 
 export interface ResponseState {
   success: boolean;
-  data?: Array<any>;
+  data?: any;
   showType?: number;
   erroeMessage?: string;
 }

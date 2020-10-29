@@ -104,3 +104,4 @@ export const fetchShopNicknames = async () : Promise<FetchShopNicknamesState> =>
     method: 'GET'
   });
 };
+

@@ -1,5 +1,6 @@
 import styles from "./index.less";
 import React, { useState, useEffect } from "react";
+import {create,CreateState } from '@/services/goods';
 import {
   Form,
   Input,
@@ -7,8 +8,10 @@ import {
   Select,
   InputNumber,
   Switch,
-  Transfer
+  Transfer,
+  message
 } from "antd";
+import { history } from 'umi';
 import {FetchCategoreItemState, fetchCategores} from "@/services/categores";
 import {fetchBrands, ItemBrand} from "@/services/brands";
 import {fetchAll, TagItem} from "@/services/goodsTags";
@@ -24,7 +27,6 @@ const formTailLayout = {
   labelCol: { span: 4 },
   wrapperCol: { span: 8, offset: 8 },
 };
-
 
 const DynamicRule = () => {
   const [form] = Form.useForm();
@@ -44,8 +46,11 @@ const DynamicRule = () => {
     fetchCategores().then(newCategores => {
       setCatygory(newCategores.data)
     } );
-    fetchBrands().then(res => setBrands(res.data));
-    fetchAll().then(res => setTags(res.data));
+    fetchBrands().then(res => setBrands(res.data) );
+    fetchAll().then(res => {
+        setTags(res.data)
+      }
+    );
     fetchShopNicknames().then(res => {
       setShopNicknames(res.data)
     });
@@ -53,8 +58,12 @@ const DynamicRule = () => {
 
   const onCheck = async () => {
     try {
-      const values = await form.validateFields();
-      console.log("Success:", values);
+      const values = await form.validateFields() as CreateState;
+      const tagIds = values.tagIds.map(item => tags[item].id);
+      create({...values, tagIds}).then(() => {
+        message.success('添加成功');
+        history.push('/management/online');
+      });
     } catch (errorInfo) {
       console.log("Failed:", errorInfo);
     }

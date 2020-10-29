@@ -179,6 +179,7 @@ class App extends React.Component {
         pagination
       });
     });
+
   };
 
   handleFormCancel()
