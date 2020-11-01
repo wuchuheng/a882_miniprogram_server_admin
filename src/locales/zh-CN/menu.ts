@@ -10,6 +10,7 @@ export default {
   'menu.management.online': '上架',
   'menu.management.repertory': '库存',
   'menu.management.createCar': '添加车子',
+  'menu.management.propertySetting': '标签品牌分类',
   'menu.stores': '门店',
   'menu.storeCreate': '添加门店',
 

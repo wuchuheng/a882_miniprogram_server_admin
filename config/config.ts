@@ -65,24 +65,6 @@ export default defineConfig({
               path: '/management',
               routes: [
                 {
-                  name: 'categores',
-                  icon: 'category',
-                  path: '/management/categores',
-                  component: './Management/Categores',
-                },
-                {
-                  name: 'brands',
-                  icon: 'brand',
-                  path: '/management/management/brands',
-                  component: './Management/Brands',
-                },
-                {
-                  name: 'goodsTags',
-                  icon: 'smile',
-                  path: '/management/goodstags',
-                  component: './Management/GoodsTags',
-                },
-                {
                   name: 'repertory',
                   path: '/management/repertory',
                   component: './Management/RepertoryRender',
@@ -93,6 +75,12 @@ export default defineConfig({
                   hideInMenu: true,
                   path: '/management/createCar',
                   component: './Management/CreateCarRender',
+                },
+                {
+                  name: 'propertySetting',
+                  icon: 'smile',
+                  path: '/management/propertysetting',
+                  component: './Management/PropertySetting',
                 },
               ],
             },
