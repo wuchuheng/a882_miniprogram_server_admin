@@ -16,7 +16,8 @@ interface LoginProps {
 
 const LoginMessage: React.FC<{
   content: string;
-}> = ({ content }) => (
+}> = ({ content }) =>
+  (
   <Alert
     style={{
       marginBottom: 24,
@@ -28,18 +29,22 @@ const LoginMessage: React.FC<{
 );
 
 const Login: React.FC<LoginProps> = (props) => {
-  const { submitting } = props;
+  const [loading, setLoading] = useState<boolean>(false)
   const [autoLogin, setAutoLogin] = useState(true);
   const [type, setType] = useState<string>('account');
   const [errorMessage, setMessage] = useState<string>('');
 
   const handleSubmit = (values: LoginParamsType) => {
     const { dispatch } = props;
+    setLoading(true);
     dispatch({
       type: 'login/login',
       payload: { ...values, type },
     }).catch((e: string) => {
       setMessage(e);
+      setLoading(false)
+    }).then(() => {
+      setLoading(false)
     });
   };
   return (
@@ -80,7 +85,7 @@ const Login: React.FC<LoginProps> = (props) => {
             忘记密码
           </a>
         </div>
-        <Submit loading={submitting}>登录</Submit>
+        <Submit loading={loading}>登录</Submit>
       </LoginForm>
     </div>
   );

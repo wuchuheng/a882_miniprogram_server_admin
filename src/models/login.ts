@@ -35,8 +35,12 @@ const Model: LoginModelType = {
   },
 
   effects: {
-    *login({ payload }, { call, put }) {
-      const response: ResponseState = yield call(fakeAccountLogin, payload);
+    * login({ payload }, { call, put }) {
+      try {
+        const response: ResponseState = yield call(fakeAccountLogin, payload);
+      } catch(e) {
+        return Promise.reject();
+      }
       if (response.success === true) {
         yield put({
           type: 'changeLoginStatus',
