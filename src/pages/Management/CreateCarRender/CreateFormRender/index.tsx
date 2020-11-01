@@ -11,7 +11,7 @@ import {
   Transfer,
   message
 } from "antd";
-import { history } from 'umi';
+import { history, Access, useAccess } from 'umi';
 import {FetchCategoreItemState, fetchCategores} from "@/services/categores";
 import {fetchBrands, BrandItemState} from "@/services/brands";
 import {fetchAll, TagItem} from "@/services/goodsTags";
@@ -36,6 +36,7 @@ const DynamicRule = () => {
   const [status, setStatus] = useState<boolean>(true);
   const [shopNicknames, setShopNicknames] = useState<Array<FetchShopNicknamesItem>>([]);
   const [shopSelectNicknames, setShopSelectNicknames] = useState<Array<string>>([]);
+  const access = useAccess();
 
   const switchChange = () => setStatus(!status);
   const onChangeShop = (params: Array<string>) => {
@@ -62,7 +63,7 @@ const DynamicRule = () => {
       const tagIds = values.tagIds.map(item => tags[item].id);
       create({...values, tagIds}).then(() => {
         message.success('添加成功');
-        history.push('/management/online');
+        history.push('/management/repertory');
       });
     } catch (errorInfo) {
       console.log("Failed:", errorInfo);
@@ -244,22 +245,24 @@ const DynamicRule = () => {
           placeholder='请输入押金'
         />
       </Form.Item>
-      <Form.Item
-        {...formItemLayout}
-        label='门店'
-        name='shopIds'
-        rules={[
-          {required: true, message:'请选择车子要出售的门店'}
-        ]}
-      >
-        <Transfer
-          dataSource={shopNicknames.map(item => ({key: item.id.toString(10), nickname: item.nickname}))}
-          render={item => item.nickname}
-          targetKeys={shopSelectNicknames}
-          onChange={onChangeShop}
-          pagination
-        />
-      </Form.Item>
+      <Access accessible={access.canAddGoodsToMoreShop}>
+        <Form.Item
+          {...formItemLayout}
+          label='门店'
+          name='shopIds'
+          rules={[
+            {required: true, message:'请选择车子要出售的门店'}
+          ]}
+        >
+          <Transfer
+            dataSource={shopNicknames.map(item => ({key: item.id.toString(10), nickname: item.nickname}))}
+            render={item => item.nickname}
+            targetKeys={shopSelectNicknames}
+            onChange={onChangeShop}
+            pagination
+          />
+        </Form.Item>
+      </Access>
 
       <Form.Item
         {...formItemLayout}

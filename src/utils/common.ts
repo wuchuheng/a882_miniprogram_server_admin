@@ -4,11 +4,21 @@ import {fetchList} from "@/services/configs";
 import {request} from "umi";
 
 export const currentUserRoleKey = 'currentUserRole';
+/**
+ * 保存当前用户角色
+ * @param roles
+ */
 export const setCurrentUserRoles = (roles: Array<string>): void => {
   const rolesString = JSON.stringify(roles);
   localStorage.setItem(currentUserRoleKey, rolesString);
 };
 
+export const getCurrentUserRoles = () : Array<string> => {
+  const params = localStorage.getItem(currentUserRoleKey);
+  if (!params) return [];
+   const newParams = JSON.parse(params) as Array<string>;
+   return newParams;
+};
 
 // 坐标换算为地址
 export  const getAddressByLocation = (location: { latitude: number; longitude: number; } ) :Promise<string> =>   {

@@ -47,7 +47,6 @@ export default defineConfig({
         {
           path: '/',
           component: '../layouts/BasicLayout',
-          authority: ['admin', 'user'],
           routes: [
             {
               path: '/',
@@ -81,36 +80,23 @@ export default defineConfig({
                   icon: 'smile',
                   path: '/management/propertysetting',
                   component: './Management/PropertySetting',
+                  access: 'canVisitStoreProperty'
                 },
               ],
             },
-            // {
-            //   path: '/admin',
-            //   name: 'admin',
-            //   icon: 'crown',
-            //   component: './Admin',
-            //   authority: ['admin'],
-            //   routes: [
-            //     {
-            //       path: '/admin/sub-page',
-            //       name: 'sub-page',
-            //       icon: 'smile',
-            //       component: './Welcome',
-            //       authority: ['admin'],
-            //     },
-            //   ],
-            // },
             {
               name: 'storeCreate',
               hideInMenu: true,
               path: '/stores/create',
               component: './Stores/CreateRender',
+              access: 'canCreateStore'
             },
             {
               name: 'stores',
               icon: 'shop',
               path: '/stores',
               component: './Stores',
+              access: 'canVisitStore'
             },
             {
               component: './404',
