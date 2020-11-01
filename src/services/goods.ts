@@ -1,4 +1,5 @@
 import request, {ResponseState} from '@/utils/request';
+import {propertyNameToLineName} from "@/utils/common";
 
 export interface CreateState {
   bannerId: number;
@@ -70,6 +71,24 @@ export interface FetchResponseState extends ResponseState {
 }
 
 /**
+ *
+ */
+export interface UpdateParamsState {
+  id: number;
+  bannerId: number;
+  baseCost: number;
+  brandId: number;
+  categoryId: number;
+  cost: number;
+  insuranceCost: number;
+  name: string;
+  pledgeCost: number;
+  serviceCost: number;
+  tagIds: Array<number>;
+  total: number;
+}
+
+/**
  * 创建
  * @param params
  */
@@ -128,4 +147,12 @@ export const fetchStatus = async () : Promise<FetchSTatusResponseState> => {
   return request('/goods/status', {
     method: 'GET'
   })
+}
+
+export const update = async (params:UpdateParamsState) => {
+  const newPrams = propertyNameToLineName(params);
+  return request(`/goods/${params.id}`, {
+    method: 'PUT',
+    params: {...newPrams, tag_ids: params.tagIds.join(',')}
+  });
 }

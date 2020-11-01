@@ -13,7 +13,7 @@ import {
 } from "antd";
 import { history } from 'umi';
 import {FetchCategoreItemState, fetchCategores} from "@/services/categores";
-import {fetchBrands, ItemBrand} from "@/services/brands";
+import {fetchBrands, BrandItemState} from "@/services/brands";
 import {fetchAll, TagItem} from "@/services/goodsTags";
 import { FetchShopNicknamesItem, fetchShopNicknames } from "@/services/user";
 import UploadRender from '../../../../components/UploadOneImage';
@@ -31,7 +31,7 @@ const formTailLayout = {
 const DynamicRule = () => {
   const [form] = Form.useForm();
   const [categores, setCatygory] = useState<Array<FetchCategoreItemState>>([]);
-  const [brands, setBrands] = useState<Array<ItemBrand>>([]);
+  const [brands, setBrands] = useState<Array<BrandItemState>>([]);
   const [tags, setTags] = useState<Array<TagItem>>([]);
   const [status, setStatus] = useState<boolean>(true);
   const [shopNicknames, setShopNicknames] = useState<Array<FetchShopNicknamesItem>>([]);

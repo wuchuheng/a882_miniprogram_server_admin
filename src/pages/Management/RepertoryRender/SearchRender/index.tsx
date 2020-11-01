@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import styles from "@/pages/Management/OnlineRender/index.less";
+import styles from "./index.less";
 import {Input, Radio} from "antd";
 import {PropsState, StatusState} from './Type';
 import {RadioChangeEvent} from "antd/es/radio";

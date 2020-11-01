@@ -1,12 +1,12 @@
 import request, {ResponseState} from '@/utils/request';
 
-export interface ItemBrand {
+export interface BrandItemState {
   id: number;
   name: string;
 }
 
 export interface FetchBrandsState extends ResponseState{
-  data: Array<ItemBrand>
+  data: Array<BrandItemState>
 }
 
 // 品牌列表

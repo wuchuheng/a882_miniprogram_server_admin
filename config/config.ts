@@ -83,9 +83,9 @@ export default defineConfig({
                   component: './Management/GoodsTags',
                 },
                 {
-                  name: 'online',
-                  path: '/management/online',
-                  component: './Management/OnlineRender',
+                  name: 'repertory',
+                  path: '/management/repertory',
+                  component: './Management/RepertoryRender',
                 },
                 {
                   name: 'createCar',

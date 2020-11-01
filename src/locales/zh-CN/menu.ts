@@ -8,6 +8,7 @@ export default {
   'menu.management.categores': '车辆分类',
   'menu.management.goodsTags': '车辆标签',
   'menu.management.online': '上架',
+  'menu.management.repertory': '库存',
   'menu.management.createCar': '添加车子',
   'menu.stores': '门店',
   'menu.storeCreate': '添加门店',

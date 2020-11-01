@@ -1,7 +1,6 @@
 import { PageContainer } from '@ant-design/pro-layout';
 import React, {FC, useEffect, useState} from 'react';
 import { Card, Row, Col } from 'antd';
-import {history} from "umi";
 import TableRender from './TableRender';
 import styles from './index.less';
 import {fetchStatus, FetchStatusState} from '@/services/goods'
@@ -14,9 +13,6 @@ export default () => {
     fetchStatus().then(res => setStatus(res.data));
   }, []);
   const [query, setQuery] = useState<QueryState>({});
-  const onRedirectToCreate = () => {
-    history.push('/management/createCar');
-  };
   const Info: FC<{
     title: React.ReactNode;
     value: React.ReactNode;

@@ -38,3 +38,14 @@ export  const getAddressByLocation = (location: { latitude: number; longitude: n
     });
   })
 };
+
+// 驼峰转属性换下划线命名
+export const propertyNameToLineName =  (params: Record<string, any>) => {
+  const newPrams: Record<string, any>  = {};
+  for (const name in params) {
+    let val = params[name];
+    const newName = name.replace(/([A-Z])/g,"_$1").toLowerCase();
+    newPrams[newName] = val;
+  }
+  return  newPrams;
+}
