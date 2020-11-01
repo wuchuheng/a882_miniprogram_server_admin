@@ -2,10 +2,11 @@ import { Alert, Checkbox } from 'antd';
 import React, { useState } from 'react';
 import { connect, Dispatch } from 'umi';
 import { StateType } from '@/models/login';
-import { LoginParamsType } from '@/services/login';
+import {accountLogin, LoginParamsType} from '@/services/login';
 import { ConnectState } from '@/models/connect';
 import LoginForm from './components/Login';
 import styles from './style.less';
+import {ResponseState} from '@/utils/request';
 
 const { Tab, UserName, Password, Submit } = LoginForm;
 interface LoginProps {
@@ -37,14 +38,16 @@ const Login: React.FC<LoginProps> = (props) => {
   const handleSubmit = (values: LoginParamsType) => {
     const { dispatch } = props;
     setLoading(true);
-    dispatch({
-      type: 'login/login',
-      payload: { ...values, type },
-    }).catch((e: string) => {
-      setMessage(e);
-      setLoading(false)
-    }).then(() => {
-      setLoading(false)
+    accountLogin({ ...values }).then(res => {
+      setLoading(false);
+      dispatch({
+        type: 'login/login',
+        payload: res
+      })
+    }).catch((e: ResponseState) => {
+      setLoading((prev) => !prev );
+      const newErrorMessage = e.errorMessage as string;
+      setMessage(newErrorMessage)
     });
   };
   return (

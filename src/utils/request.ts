@@ -25,7 +25,7 @@ export interface ResponseState {
   success: boolean;
   data?: any;
   showType?: number;
-  erroeMessage?: string;
+  errorMessage?: string;
 }
 
 const codeMessage = {

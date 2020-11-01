@@ -1,9 +1,7 @@
 import { stringify } from 'querystring';
 import { history, Reducer, Effect } from 'umi';
-import { fakeAccountLogin } from '@/services/login';
 import { setAuthority } from '@/utils/authority';
 import { getPageQuery } from '@/utils/utils';
-import { ResponseState } from '@/services/Type';
 import { setToken, removeToken } from '@/utils/auth';
 import { currentUserRoleKey } from '@/utils/common';
 
@@ -35,21 +33,8 @@ const Model: LoginModelType = {
   },
 
   effects: {
-    * login({ payload }, { call, put }) {
-      try {
-        const response: ResponseState = yield call(fakeAccountLogin, payload);
-      } catch(e) {
-        return Promise.reject();
-      }
-      if (response.success === true) {
-        yield put({
-          type: 'changeLoginStatus',
-          payload: {
-            status: 'ok',
-            // :xxx 这个字段可能是用户判断设备是pc或mobile等，作用
-            type: 'pc',
-          },
-        });
+    login({ payload }) {
+      const response = payload;
         const data = response.data as { token: string };
         setToken(data.token);
         const urlParams = new URL(window.location.href);
@@ -68,10 +53,6 @@ const Model: LoginModelType = {
           }
         }
         window.location.href = '/';
-      } else {
-        // eslint-disable-next-line consistent-return
-        return Promise.reject(response.errorMessage);
-      }
     },
 
     *loginByCacheToken(_, { put }) {
