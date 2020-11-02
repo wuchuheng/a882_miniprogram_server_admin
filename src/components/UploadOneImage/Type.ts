@@ -4,6 +4,7 @@ export interface ImgState {
 }
 
 export interface PropsState  {
+  aspect? : number;
   imgUrl?: ImgState;
   onChange?: (params: ImgState) => void;
 }

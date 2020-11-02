@@ -13,9 +13,10 @@ export default {
   'menu.management.propertySetting': '标签品牌分类',
   'menu.stores': '门店',
   'menu.storeCreate': '添加门店',
-
+  'menu.auth': '权限控制',
   'menu.setting.prices': '价格设置',
   'menu.setting': '设置',
+  'menu.setting.slide': '幻灯片',
 
   'menu.admin.sub-page': '二级管理页',
   'menu.login': '登录',

@@ -56,7 +56,7 @@ export default defineConfig({
               name: 'dashboard',
               icon: 'dashboard',
               path: '/dashboard',
-              component: './Dashboard',
+              component: './DashboardRender',
             },
             {
               name: 'management',
@@ -80,7 +80,7 @@ export default defineConfig({
                   icon: 'smile',
                   path: '/management/propertysetting',
                   component: './Management/PropertySetting',
-                  access: 'canVisitStoreProperty'
+                  access: 'canVisitStoreProperty',
                 },
               ],
             },
@@ -89,14 +89,27 @@ export default defineConfig({
               hideInMenu: true,
               path: '/stores/create',
               component: './Stores/CreateRender',
-              access: 'canCreateStore'
+              access: 'canCreateStore',
             },
             {
               name: 'stores',
               icon: 'shop',
               path: '/stores',
               component: './Stores',
-              access: 'canVisitStore'
+              access: 'canVisitStore',
+            },
+            {
+              name: 'setting',
+              icon: 'setting',
+              path: '/setting',
+              routes: [
+                {
+                  name: 'slide',
+                  icon: 'smile',
+                  path: '/setting/slide',
+                  component: './SettingRender/SlideRender',
+                },
+              ]
             },
             {
               component: './404',

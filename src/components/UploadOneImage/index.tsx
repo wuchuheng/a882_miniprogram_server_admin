@@ -9,6 +9,8 @@ import ImgCrop from "antd-img-crop";
 import 'antd/es/modal/style';
 import 'antd/es/slider/style';
 
+export {ImgState} from './Type';
+
 const UploadOneImage = (props: PropsState) => {
   const [imageUrl, setImageUrl] = useState<string>('');
   const [loading, setLoading] = useState<boolean>(false);
@@ -49,7 +51,7 @@ const UploadOneImage = (props: PropsState) => {
     <ImgCrop
       rotate
       modalTitle='图片裁剪'
-      aspect={135/72}
+      aspect={props.aspect ? props.aspect : 135/72}
       modalCancel='取消'
       modalOk='上传'
     >
