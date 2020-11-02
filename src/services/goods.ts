@@ -1,6 +1,11 @@
 import request, {ResponseState} from '@/utils/request';
 import {propertyNameToLineName} from "@/utils/common";
 
+
+export interface UpdateStatusParamsState {
+  id: number;
+  status: boolean;
+}
 export interface CreateState {
   bannerId: number;
   baseCost: number;
@@ -156,3 +161,14 @@ export const update = async (params:UpdateParamsState) => {
     params: {...newPrams, tag_ids: params.tagIds.join(',')}
   });
 }
+
+/**
+ * 更新状
+ * @param params
+ */
+export const updateStatus = async (params: UpdateStatusParamsState) => {
+  return request(`/goods/${params.id}/status`, {
+    method: 'PUT',
+    params: {status: params.status ? 1 : 0}
+  });
+};

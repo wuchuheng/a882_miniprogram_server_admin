@@ -1,17 +1,24 @@
 import React, {useEffect, useState} from "react";
-import {Image,
+import {
+  Image,
   Switch,
   Table,
   Tag,
   Button,
-  Modal
+  Modal, message
 } from "antd";
 import {OnChangeState} from "./EditRender/Type";
 import EditRender from "./EditRender";
 import {history} from "umi";
 import {
-  UserState, CategoryState, BrandState, TagsState, BannerState, FetchItemState,
-  fetch
+  UserState,
+  CategoryState,
+  BrandState,
+  TagsState,
+  BannerState,
+  FetchItemState,
+  fetch,
+  updateStatus
 } from "@/services/goods";
 import {TablePaginationConfig} from "antd/es/table";
 import {PropsState } from './Type';
@@ -65,6 +72,11 @@ const TableRender = (props: PropsState) => {
     })
     seTdataSource(newDataSource);
     setIsEdit(false);
+  };
+  const onStatusChange = (params: {status: boolean; id: number}) => {
+      updateStatus(params).then(() => {
+        message.success('修改成功')
+      });
   };
   const columns = [
     {
@@ -149,12 +161,12 @@ const TableRender = (props: PropsState) => {
     {
       title: '上下架',
       dataIndex: 'status',
-      render: (status: boolean) => {
+      render: (status: boolean, row: FetchItemState) => {
         return (<Switch
             size='small'
             checkedChildren="上架"
             unCheckedChildren="下架"
-            onChange={(isOpen: boolean) => {}}
+            onChange={(isOnline:  boolean) => onStatusChange({status: isOnline, id: row.id})}
             defaultChecked={status} />
         );
       }
