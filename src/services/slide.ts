@@ -49,3 +49,9 @@ export const fetchList = async (params: FetchListState): Promise<FetchListRespon
     params
   });
 }
+
+export const destroy = async (id: number): Promise<ResponseState> => {
+  return request(`/slides/${id}`, {
+    method: 'DELETE'
+  });
+}

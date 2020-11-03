@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 import { PageContainer } from '@ant-design/pro-layout';
-import {Table, Image, Card, Button, Modal} from "antd";
-import {fetchList, ItemState} from '@/services/slide'
+import {Table, Image, Card, Button, Modal, Popconfirm, message} from "antd";
+import {fetchList, ItemState, destroy} from '@/services/slide'
 import styles from './index.less';
 import ActionFormRender from "./ActionFormRender";
 import {PaginationState} from "@/pages/SettingRender/SlideRender/Type";
@@ -32,6 +32,12 @@ const SlideRender = () => {
         total: res.data.total
       }))
     });
+  };
+  const onDelete = (params: ItemState) => {
+      destroy(params.id).then(() => {
+        message.success('删除成功');
+        onChange(pagination);
+      });
   };
   const onChangeAdd = (params: ItemState) => {
     setDataSource((prev) => {
@@ -68,7 +74,16 @@ const SlideRender = () => {
           <>
             <div className={styles.actionWrapper}>
               <a>编辑</a>
-              <a>删除</a>
+              <Popconfirm
+                placement="topRight"
+                title='确实定删除?'
+                onConfirm={() => onDelete(row)}
+                okText="是"
+                cancelText="否"
+              >
+                <a>删除</a>
+              </Popconfirm>
+
             </div>
           </>
         );
