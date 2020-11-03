@@ -40,17 +40,39 @@ const SlideRender = () => {
       });
   };
   const onChangeAdd = (params: ItemState) => {
-    setDataSource((prev) => {
-      prev.pop();
-      return [params, ...prev];
-    })
+    //  编辑
+    if (actionMode === 'edit') {
+      const newDataSource = dataSource.map(item => item.id === params.id ? params : item );
+      setDataSource(newDataSource)
+    } else if (actionMode === 'add') {
+      if (dataSource.length === pagination.pageSize) {
+        setDataSource((prev) => {
+          prev.pop();
+          return [params, ...prev];
+        })
+      } else {
+        setDataSource((prev) => {
+          return [params, ...prev];
+        })
+      }
+    }
     setActionMode(null);
   };
 
   useEffect(() => {
     onChange(pagination)
   }, [])
-
+  const [editItem, setEditItem] = useState<ItemState | undefined>(undefined);
+  const onEdit = (params: ItemState) => {
+    setActionMode('edit');
+    setEditItem(params);
+  };
+  const [refresh, setRefresh] = useState<false | number>(false);
+  const onShowAdd = () => {
+    setActionMode('add');
+    setEditItem(undefined);
+    setRefresh(Date.now());
+  };
   const columns = [
     {
       title: 'ID',
@@ -73,7 +95,7 @@ const SlideRender = () => {
         return (
           <>
             <div className={styles.actionWrapper}>
-              <a>编辑</a>
+              <a onClick={() => onEdit(row)}>编辑</a>
               <Popconfirm
                 placement="topRight"
                 title='确实定删除?'
@@ -83,7 +105,6 @@ const SlideRender = () => {
               >
                 <a>删除</a>
               </Popconfirm>
-
             </div>
           </>
         );
@@ -97,7 +118,7 @@ const SlideRender = () => {
         <Card>
           <Button
             className={styles.addButtonRender}
-            onClick={() => setActionMode('add')}
+            onClick={() => onShowAdd()}
           >添加</Button>
           <Table
             bordered
@@ -117,7 +138,9 @@ const SlideRender = () => {
         onCancel={() => setActionMode(null)}
       >
         <ActionFormRender
+          editItem={editItem !== undefined ? editItem : undefined}
           onChange={onChangeAdd}
+          refresh={refresh}
         />
       </Modal>
     </>

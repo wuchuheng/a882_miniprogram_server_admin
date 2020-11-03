@@ -8,4 +8,5 @@ export interface PropsState  {
   imgUrl?: ImgState;
   isCut?: boolean;
   onChange?: (params: ImgState) => void;
+  isRefresh?: number | false;
 }

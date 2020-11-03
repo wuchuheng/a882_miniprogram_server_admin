@@ -1,8 +1,8 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import {Form, Button, message} from "antd";
 import UploadOneImage, {ImgState} from "@/components/UploadOneImage";
-import {PropsState, OnFinishParamsState } from './Type';
-import {create} from "@/services/slide";
+import {PropsState, OnFinishParamsState, ItemState } from './Type';
+import {create, update} from "@/services/slide";
 
 const ActionFormRender = (props: PropsState ) => {
   const layout = {
@@ -29,7 +29,13 @@ const ActionFormRender = (props: PropsState ) => {
   const onFinish = (params:  OnFinishParamsState) => {
     // 编辑
     if (props.editItem) {
-
+      update({id: props.editItem.id , slide_id: params.slide.id, detail_id: params.detail.id}).then(() => {
+          message.success('修改成功');
+          if (props.onChange !== undefined) {
+            const item = props.editItem as ItemState;
+            props.onChange({...params, id: item.id});
+          }
+      });
     } else {
     // 添加
       create({slide_id: params.slide.id, detail_id: params.detail.id}).then((res) => {
@@ -40,6 +46,29 @@ const ActionFormRender = (props: PropsState ) => {
       })
     }
   }
+  const [detail, setDetail] = useState<ImgState | undefined>(undefined);
+  const [slide, setSlide] = useState<ImgState | undefined>(undefined);
+  useEffect(() => {
+    if (props.editItem !== undefined) {
+      setDetail(props.editItem.detail);
+      setSlide(props.editItem.slide);
+      form.setFieldsValue({
+        slide: props.editItem.slide,
+        detail: props.editItem.detail
+      });
+    }else {
+      setDetail(undefined);
+      setSlide(undefined);
+      // setActionMode(Date.now());
+    }
+  });
+  useEffect(() => {
+    form.setFieldsValue({
+      slide: undefined,
+      detail: undefined
+    })
+  }, [props.refresh])
+
   return (
     <Form
        form={form}
@@ -54,8 +83,10 @@ const ActionFormRender = (props: PropsState ) => {
         ]}
       >
         <UploadOneImage
+          {...(slide !== undefined ? {imgUrl: slide} : {})}
           onChange={onChangeUpdateSlide}
           aspect={750/340}
+          {...(props.refresh !== undefined ? {isRefresh: props.refresh} : {})}
         />
       </Form.Item>
       <Form.Item
@@ -67,8 +98,10 @@ const ActionFormRender = (props: PropsState ) => {
         ]}
       >
         <UploadOneImage
+          {...(detail !== undefined ? {imgUrl: detail} : {})}
           onChange={onChangeUpdateDetail}
           isCut={false}
+          {...(props.refresh !== undefined ? {isRefresh: props.refresh} : {})}
         />
       </Form.Item>
       <Form.Item

@@ -55,3 +55,18 @@ export const destroy = async (id: number): Promise<ResponseState> => {
     method: 'DELETE'
   });
 }
+
+export interface UpdateResponseState extends ResponseState{ }
+
+export interface UpdateParamsState {
+  id: number;
+  slide_id: number;
+  detail_id: number;
+}
+export const update = async (params: UpdateParamsState) : Promise<UpdateResponseState> => {
+  const {id, ...otherParams} = params;
+  return request(`/slides/${id}`, {
+    method: 'PATCH',
+    params: otherParams
+  });
+};

@@ -20,10 +20,16 @@ const UploadOneImage = (props: PropsState) => {
       <div style={{ marginTop: 8 }}>上传</div>
     </div>
   );
-
   useEffect(() => {
     if (props.imgUrl) setImageUrl(props.imgUrl.url);
   }, [props.imgUrl])
+
+  useEffect(() => {
+    if (props.isRefresh) {
+      setImageUrl('');
+    }
+
+  }, [props.isRefresh] );
 
   const onChange = ({file}: UploadChangeParam) => {
     if (file?.status && file.status === 'uploading') setLoading(true);
@@ -34,13 +40,12 @@ const UploadOneImage = (props: PropsState) => {
       setImageUrl(url);
     }
   };
-
   const  beforeUpload = (file: any) => {
     const isJpgOrPng = file.type === 'image/jpeg' || file.type === 'image/png';
     if (!isJpgOrPng) {
       message.error('请上传 JPG/PNG 格式的图片!');
     }
-    const isLt2M = file.size / 1024 / 1024 < 2;
+    const isLt2M = file.size / 1024 / 1024 < 4;
     if (!isLt2M) {
       message.error('图片不能大于 2MB!');
     }
@@ -55,13 +60,17 @@ const UploadOneImage = (props: PropsState) => {
       listType="picture-card"
       className="avatar-uploader"
       showUploadList={false}
-      action={`${config.baseRequestUrl}/albums`}
+      action={
+        `${config.baseRequestUrl}/albums`
+      }
       beforeUpload={beforeUpload}
       onChange={onChange}
       name='img'
     >
       {imageUrl.length > 0 ?
-        <img src={imageUrl} alt="avatar" style={{ width: '100%' }} />
+        <img src={imageUrl} alt="avatar" style={{
+          width: '100%',
+          maxHeight: '100px' }} />
         : uploadButton}
     </Upload>
   );
