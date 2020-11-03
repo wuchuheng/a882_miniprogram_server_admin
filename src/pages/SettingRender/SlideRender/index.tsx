@@ -33,6 +33,13 @@ const SlideRender = () => {
       }))
     });
   };
+  const onChangeAdd = (params: ItemState) => {
+    setDataSource((prev) => {
+      prev.pop();
+      return [params, ...prev];
+    })
+    setActionMode(null);
+  };
 
   useEffect(() => {
     onChange(pagination)
@@ -94,7 +101,9 @@ const SlideRender = () => {
         footer={null}
         onCancel={() => setActionMode(null)}
       >
-        <ActionFormRender />
+        <ActionFormRender
+          onChange={onChangeAdd}
+        />
       </Modal>
     </>
   );

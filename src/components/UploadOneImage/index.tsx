@@ -47,31 +47,41 @@ const UploadOneImage = (props: PropsState) => {
     return isJpgOrPng && isLt2M;
   }
 
-  return (
-    <ImgCrop
-      rotate
-      modalTitle='图片裁剪'
-      aspect={props.aspect ? props.aspect : 135/72}
-      modalCancel='取消'
-      modalOk='上传'
+  const upload = (
+    <Upload
+      headers={{
+        Authorization: `Bearer ${getToken()}`
+      }}
+      listType="picture-card"
+      className="avatar-uploader"
+      showUploadList={false}
+      action={`${config.baseRequestUrl}/albums`}
+      beforeUpload={beforeUpload}
+      onChange={onChange}
+      name='img'
     >
-      <Upload
-        headers={{
-          Authorization: `Bearer ${getToken()}`
-        }}
-        listType="picture-card"
-        className="avatar-uploader"
-        showUploadList={false}
-        action={`${config.baseRequestUrl}/albums`}
-        beforeUpload={beforeUpload}
-        onChange={onChange}
-        name='img'
-      >
-        {imageUrl.length > 0 ?
-          <img src={imageUrl} alt="avatar" style={{ width: '100%' }} />
-          : uploadButton}
-      </Upload>
-    </ImgCrop>
+      {imageUrl.length > 0 ?
+        <img src={imageUrl} alt="avatar" style={{ width: '100%' }} />
+        : uploadButton}
+    </Upload>
+  );
+
+
+
+  return (
+    <>
+      {props.isCut === undefined || props.isCut === true ? (
+        <ImgCrop
+          rotate
+          modalTitle='图片裁剪'
+          aspect={props.aspect ? props.aspect : 135/72}
+          modalCancel='取消'
+          modalOk='上传'
+        >
+          {upload}
+        </ImgCrop>
+      ) : upload }
+      </>
   );
 };
 

@@ -68,7 +68,7 @@ const ActionFormRender = (props: PropsState ) => {
       >
         <UploadOneImage
           onChange={onChangeUpdateDetail}
-          aspect={750/340}
+          isCut={false}
         />
       </Form.Item>
       <Form.Item

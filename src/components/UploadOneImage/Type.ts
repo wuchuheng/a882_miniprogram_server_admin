@@ -6,5 +6,6 @@ export interface ImgState {
 export interface PropsState  {
   aspect? : number;
   imgUrl?: ImgState;
+  isCut?: boolean;
   onChange?: (params: ImgState) => void;
 }
