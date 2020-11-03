@@ -16,7 +16,8 @@ export default {
   'menu.auth': '权限控制',
   'menu.setting.prices': '价格设置',
   'menu.setting': '设置',
-  'menu.setting.slide': '幻灯片',
+  'menu.setting.slide': '幻灯片设置',
+  'menu.setting.clause': '条款设置',
 
   'menu.admin.sub-page': '二级管理页',
   'menu.login': '登录',

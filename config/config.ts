@@ -109,7 +109,13 @@ export default defineConfig({
                   path: '/setting/slide',
                   component: './SettingRender/SlideRender',
                 },
-              ]
+                {
+                  name: 'clause',
+                  icon: 'smile',
+                  path: '/setting/clause',
+                  component: './SettingRender/ClauseRender',
+                },
+              ],
             },
             {
               component: './404',
