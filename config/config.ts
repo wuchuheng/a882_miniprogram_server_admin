@@ -115,6 +115,12 @@ export default defineConfig({
                   path: '/setting/clause',
                   component: './SettingRender/ClauseRender',
                 },
+                {
+                  name: 'fq',
+                  icon: 'smile',
+                  path: '/setting/fq',
+                  component: './SettingRender/FqRender',
+                },
               ],
             },
             {

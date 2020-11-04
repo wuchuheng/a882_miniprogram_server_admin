@@ -18,6 +18,7 @@ export default {
   'menu.setting': '设置',
   'menu.setting.slide': '幻灯片设置',
   'menu.setting.clause': '条款设置',
+  'menu.setting.fq': '常见问题',
 
   'menu.admin.sub-page': '二级管理页',
   'menu.login': '登录',

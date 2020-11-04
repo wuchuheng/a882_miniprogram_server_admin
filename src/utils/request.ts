@@ -106,3 +106,10 @@ request.interceptors.response.use(async (response) => {
 });
 
 export default request;
+
+// 分页参数类型
+export interface PageRequestParamsState {
+  result: number;
+  page: number;
+}
+
