@@ -19,6 +19,7 @@ export default {
   'menu.setting.slide': '幻灯片设置',
   'menu.setting.clause': '条款设置',
   'menu.setting.fq': '常见问题',
+  'menu.setting.site': '网站设置',
 
   'menu.admin.sub-page': '二级管理页',
   'menu.login': '登录',

@@ -1,6 +1,6 @@
 import { DefaultFooter, MenuDataItem, getMenuData, getPageTitle } from '@ant-design/pro-layout';
 import { Helmet, HelmetProvider } from 'react-helmet-async';
-import { Link, SelectLang, useIntl, ConnectProps, connect } from 'umi';
+import {Link, SelectLang, useIntl, ConnectProps, connect, useSelector} from 'umi';
 import React from 'react';
 import { ConnectState } from '@/models/connect';
 import logo from '../assets/logo.svg';
@@ -33,6 +33,7 @@ const UserLayout: React.FC<UserLayoutProps> = (props) => {
     breadcrumb,
     ...props,
   });
+  const backLogo = useSelector((state: ConnectState) => state.base.backLogo);
   return (
     <HelmetProvider>
       <Helmet>
@@ -48,7 +49,7 @@ const UserLayout: React.FC<UserLayoutProps> = (props) => {
           <div className={styles.top}>
             <div className={styles.header}>
               <Link to="/">
-                <img alt="logo" className={styles.logo} src={logo} />
+                <img alt="logo" className={styles.logo} src={backLogo} />
                 <span className={styles.title}>免押租车管理后台</span>
               </Link>
             </div>

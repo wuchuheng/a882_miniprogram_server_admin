@@ -121,6 +121,12 @@ export default defineConfig({
                   path: '/setting/fq',
                   component: './SettingRender/FqRender',
                 },
+                {
+                  name: 'site',
+                  icon: 'smile',
+                  path: '/setting/site',
+                  component: './SettingRender/SiteRender',
+                },
               ],
             },
             {

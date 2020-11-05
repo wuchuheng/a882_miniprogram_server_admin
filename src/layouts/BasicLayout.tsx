@@ -10,14 +10,13 @@ import ProLayout, {
   DefaultFooter,
 } from '@ant-design/pro-layout';
 import React, { useEffect, useMemo, useRef } from 'react';
-import { Link, useIntl, connect, Dispatch, history } from 'umi';
+import {Link, useIntl, connect, Dispatch, history, useSelector} from 'umi';
 import { GithubOutlined } from '@ant-design/icons';
 import { Result, Button } from 'antd';
 import Authorized from '@/utils/Authorized';
 import RightContent from '@/components/GlobalHeader/RightContent';
 import { ConnectState } from '@/models/connect';
 import { getMatchMenu } from '@umijs/route-utils';
-import logo from '../assets/logo.svg';
 
 const noMatch = (
   <Result
@@ -127,9 +126,10 @@ const BasicLayout: React.FC<BasicLayoutProps> = (props) => {
 
   const { formatMessage } = useIntl();
 
+  const backLogo = useSelector((state: ConnectState) => state.base.backLogo);
   return (
     <ProLayout
-      logo={logo}
+      logo={backLogo}
       formatMessage={formatMessage}
       onCollapse={handleMenuCollapse}
       onMenuHeaderClick={() => history.push('/')}

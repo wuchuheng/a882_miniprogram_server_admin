@@ -1,4 +1,4 @@
-import request from '@/utils/request'
+import request, {ResponseState} from '@/utils/request'
 
 interface FetchListState {
   success: boolean;
@@ -17,3 +17,28 @@ export async function fetchList()
   const response = request('/configs') as Promise<FetchListState>
   return response;
 }
+
+/**
+ * 获取单个配置
+ */
+export interface ConfigImgState {
+  id: number;
+  url: string
+}
+export interface  FetchOneResponseState extends ResponseState {
+  data: {value: string} | ConfigImgState;
+}
+export const fetchOne = async (key: string): Promise<FetchOneResponseState> => {
+  return request(`/configs/${key}`);
+};
+
+/**
+ *  更新
+ * @param params
+ */
+export const update = async (params: {key: string; value: string}) => {
+  return request(`/configs/${params.key}`, {
+    method: 'PATCH',
+    params: {value: params.value}
+  });
+};
