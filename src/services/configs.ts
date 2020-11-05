@@ -25,10 +25,11 @@ export interface ConfigImgState {
   id: number;
   url: string
 }
-export interface  FetchOneResponseState extends ResponseState {
-  data: {value: string} | ConfigImgState;
+
+export interface  FetchOneDiyResponseState<T> extends ResponseState {
+  data: T
 }
-export const fetchOne = async (key: string): Promise<FetchOneResponseState> => {
+export const fetchOne = async <T = ConfigImgState>(key: string): Promise<FetchOneDiyResponseState<T> > => {
   return request(`/configs/${key}`);
 };
 
