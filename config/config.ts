@@ -127,6 +127,12 @@ export default defineConfig({
                   path: '/setting/site',
                   component: './SettingRender/SiteRender',
                 },
+                {
+                  name: 'payNotices',
+                  icon: 'smile',
+                  path: '/setting/paynotices',
+                  component: './SettingRender/PayNoticesPage',
+                },
               ],
             },
             {
