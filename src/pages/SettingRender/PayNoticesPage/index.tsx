@@ -1,9 +1,9 @@
 import { PageContainer } from '@ant-design/pro-layout';
 import React, {useEffect, useState} from 'react';
 import styles from './index.less';
-import {Table, Button, Modal, Image} from 'antd';
+import {Table, Button, Modal, Image, message} from 'antd';
 import AddFormRender from "./AddFormRender";
-import {ItemState, fetcAll} from "@/services/payNotices";
+import {ItemState, fetcAll, destroy} from "@/services/payNotices";
 import {ModelActionMapToTextState, ModelActionState} from "@/pages/SettingRender/PayNoticesPage/type";
 import EditFormRender from './EditFormRender';
 
@@ -25,6 +25,12 @@ export default () => {
     setModelAction('edit');
     setCurrentEditItem(params);
   }
+  const onDelete = (recore: ItemState) => {
+    destroy(recore.id).then(() => {
+      message.success('删除成功');
+      setDataSource((prev) => prev.filter(item => item.id !== recore.id) )
+    });
+  };
 
   const columns = [
     {
@@ -49,11 +55,12 @@ export default () => {
     },
     {
       title: '操作',
-      render: (_, recored: ItemState) => {
+      render: (row: any, recored: ItemState) => {
         return (
-          <>
-            <a onClick={() => onEdit(recored)}>编辑</a>
-          </>
+            <div className={styles.actionWrapper}>
+              <a onClick={() => onEdit(recored)}>编辑</a>
+              <a onClick={() => onDelete(recored)}>删除</a>
+            </div>
         );
       }
     }
@@ -86,6 +93,7 @@ export default () => {
           onClick={onAdd}
         >添加</Button>
         <Table
+          bordered
           dataSource={dataSource}
           rowKey={(recored) => recored.id}
           columns={columns}

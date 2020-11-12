@@ -3,6 +3,7 @@ import React from 'react';
 import { Card, Tabs} from 'antd';
 import SiteSettingRender from "./SiteSettingRender";
 import MapSettingRender from "@/pages/SettingRender/SiteRender/MapSettingRender";
+import MiniProgramSettingRender from "@/pages/SettingRender/SiteRender/MiniProgramSettingRender";
 
 const { TabPane } = Tabs;
 
@@ -17,8 +18,8 @@ export default () => {
           <TabPane tab="地图设置" key="2">
             <MapSettingRender />
           </TabPane>
-          <TabPane tab="Tab 3" key="3">
-            Content of Tab Pane 3
+          <TabPane tab="小程序设置" key="3">
+            <MiniProgramSettingRender />
           </TabPane>
         </Tabs>
       </Card>

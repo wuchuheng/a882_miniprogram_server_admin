@@ -1,7 +1,7 @@
 import React, {useEffect} from "react";
 import {Form, Input, Button, message} from 'antd';
 import UploadOneImage from "@/components/UploadOneImage";
-import {edit, ItemState, CreateParamsState} from "@/services/payNotices";
+import {edit, CreateParamsState} from "@/services/payNotices";
 import {PropsState} from './Type';
 
 const {TextArea} = Input;
@@ -29,7 +29,7 @@ const AddFormRender = (props: PropsState) => {
   // 初始化数据
   useEffect(() => {
     form.setFieldsValue(props.editItem );
-  }, [])
+  }, [props.editItem])
 
   return (
     <Form

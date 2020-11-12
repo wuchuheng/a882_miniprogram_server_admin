@@ -40,3 +40,10 @@ export const edit = (params: ItemState) => {
     params: {icon: icon.id, ...other}
   });
 };
+
+// 删除
+export const destroy = (id: number): Promise<ResponseState> => {
+  return request(`/payNotices/${id}`, {
+    method: 'DELETE'
+  });
+}
