@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
-import {Table, Modal, Button, message, Popconfirm} from "antd";
-import UploadOneImage, {ImgState} from "@/components/UploadOneImage";
+import {Table, Modal, Button, message, Popconfirm, Image} from "antd";
+import {ImgState} from "@/components/UploadOneImage";
 import AddRender from "./AddRender";
 import {ModalTitleState, ModalTitleStateMapToTextState} from './Type';
 import {
@@ -107,7 +107,10 @@ const TableRender = () => {
       dataIndex: 'banner',
       render: (params: ImgState) => {
         return (
-          <UploadOneImage imgUrl={params} />
+          <Image
+            className={styles.bannerRender}
+            src={params.url}
+          />
         );
       }
     },

@@ -113,3 +113,12 @@ export interface PageRequestParamsState {
   page: number;
 }
 
+// 表格分页类型
+
+export  interface  TablePaginationState {
+  current: number;
+  total: number;
+  pageSize: number;
+}
+
+

@@ -99,6 +99,12 @@ export default defineConfig({
               access: 'canVisitStore',
             },
             {
+              name: 'member',
+              icon: 'UserOutlined',
+              path: '/member',
+              component: './MemberPage',
+            },
+            {
               name: 'setting',
               icon: 'setting',
               path: '/setting',
