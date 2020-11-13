@@ -133,6 +133,12 @@ export default defineConfig({
                   path: '/setting/paynotices',
                   component: './SettingRender/PayNoticesPage',
                 },
+                {
+                  name: 'coupons',
+                  icon: 'smile',
+                  path: '/setting/coupons',
+                  component: './SettingRender/CouponsPage',
+                },
               ],
             },
             {
