@@ -99,9 +99,16 @@ export default defineConfig({
               access: 'canVisitStore',
             },
             {
+              name: 'center',
+              icon: 'smile',
+              path: '/members/:id/account',
+              hideInMenu: true,
+              component: './MemberPage/AccountPage',
+            },
+            {
               name: 'member',
               icon: 'UserOutlined',
-              path: '/member',
+              path: '/members',
               component: './MemberPage',
             },
             {

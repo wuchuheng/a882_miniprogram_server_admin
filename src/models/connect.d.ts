@@ -4,6 +4,7 @@ import { UserModelState } from './user';
 import { StateType } from './login';
 import { StateType as StoreStateType } from './Stores/Type'
 import {StateType as BaseStatetype} from './Base';
+import {StateType as MembersState}  from './members';
 
 export { GlobalModelState, UserModelState };
 
@@ -27,6 +28,7 @@ export interface ConnectState {
   login: StateType;
   stores: StoreStateType;
   base: BaseStatetype;
+  members: MembersState;
 }
 
 export interface Route extends MenuDataItem {

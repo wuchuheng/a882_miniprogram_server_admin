@@ -24,6 +24,7 @@ export default {
   'menu.setting.coupons': '优惠券设置',
 
   'menu.member': '会员管理',
+  'menu.center': '会员中心',
 
   'menu.admin.sub-page': '二级管理页',
   'menu.login': '登录',

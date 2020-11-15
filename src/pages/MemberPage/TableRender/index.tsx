@@ -5,6 +5,7 @@ import styles from './index.less';
 import {TablePaginationState} from '@/utils/request';
 import {WechatIcon, AlipayIcon} from "@/components/Icons";
 import EditRender from './EditRender'
+import {Link, history, useDispatch} from 'umi';
 
 export const TableRender = () => {
   const [editItem, setEditItem] = useState<ItemState>({
@@ -63,6 +64,14 @@ export const TableRender = () => {
     setModalVisit(false);
     setDataSource(prev => prev.map(item => item.id === params.id ? params : item));
   }
+  const dispatch = useDispatch();
+  const onGoToAccount = (params: ItemState) => {
+    dispatch({
+      type: 'members/showOneMember',
+      payload: {...params}
+    });
+    history.push(`/members/${params.id}/account`);
+  };
   const columns = [
     {
       title: 'ID',
@@ -122,7 +131,7 @@ export const TableRender = () => {
       title: '个人中心',
       render: (_, record: ItemState) => {
         return (
-          <a>查看</a>
+          <a onClick={() => onGoToAccount(record)}>查看</a>
         );
       }
     },

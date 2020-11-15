@@ -11,6 +11,6 @@ export default function() {
     canAddGoodsToMoreShop: isAdmin, // 向多个门店添加商品
     canCreateStore: isAdmin, // 创建门店
     canVisitStore: isAdmin, // 查看门店
-    canVisitStoreProperty: isAdmin, // 查看门店属性
+    canVisitStoreProperty: isAdmin, // 查看门店属性,
   };
 }
